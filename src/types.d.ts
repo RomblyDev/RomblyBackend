@@ -4,7 +4,8 @@ declare namespace NodeJS {
     databasePort: number
     databaseUser: string
     databasePassword: string
-    
+    databaseName: string
+
     port: number
   }
 }
