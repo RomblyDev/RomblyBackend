@@ -9,7 +9,11 @@ const port = 3000; // TODO: .env the shit out of this.
 const wsServer = new ws.Server({ noServer: true });
 wsServer.on('connection', socket => {
   console.log('connection handled');
-  socket.on('message', message => console.log(message));
+  socket.on('message', message => {
+    console.log(message);
+    console.log(message.toString());
+    socket.send(`Received: ${message}`);
+  });
 });
 
 app.use(express.json());
