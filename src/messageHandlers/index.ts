@@ -1,6 +1,8 @@
 import setPlayerBp from "./setPlayerBp";
 
-const messageHandlers: Record<WSMessageType, (message: string) => void> = {
+type MessageHandler = (message: string) => Promise<void>
+
+const messageHandlers: Record<WSMessageType, MessageHandler> = {
   [WSMessageType.SetPlayerBP]: setPlayerBp
 };
 
