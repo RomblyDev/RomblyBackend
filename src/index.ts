@@ -2,6 +2,7 @@ import ws from 'ws';
 import express from 'express';
 
 import routes from './routes';
+import handleMessage from './messageHandlers';
 
 const app = express();
 const port = 3000; // TODO: .env the shit out of this.
@@ -13,6 +14,19 @@ wsServer.on('connection', socket => {
     console.log(message);
     console.log(message.toString());
     socket.send(`Received: ${message}`);
+
+    if (Array.isArray(message)) {
+      console.error('Received message of type Buffer[]')
+      console.error(`Received Buffer[]: ${message}`)
+      socket.send('Error, check server logs')
+      return
+    }
+
+    // Look at the first byte of the message, interpret it as a WSMessageType.
+    let intArray = new Uint8Array(message)
+    const messageType: WSMessageType = intArray[0]
+
+    handleMessage(messageType, message.slice(1).toString())
   });
 });
 
