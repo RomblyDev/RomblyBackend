@@ -42,7 +42,7 @@ export const rumbleProfiles = mysqlTable('rumble_profile', {
   bucketheadId: varchar('buckethead_id', { length: 64 }).primaryKey(),
   discordUserId: bigint('discord_user_id', { mode: 'number' }).unique()
     .references(() => discordUsers.discordUserId),
-  rumbleDisplayName: varchar('rumble_display_name', { length: 32 }).notNull(), 
+  rumbleDisplayName: varchar('rumble_display_name', { length: 48 }).notNull(), 
   isOculus: boolean('is_oculus').notNull(), // TODO: What is this about?
   bp: int('bp').notNull().default(0)
 })
